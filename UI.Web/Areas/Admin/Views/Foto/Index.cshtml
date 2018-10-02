@@ -1,0 +1,118 @@
+﻿@model List<Aplicacao.Core.Dominio.Foto>
+@{ 
+    Layout = "../Shared/Layout.cshtml";
+    ViewBag.Title = "Foto";
+
+}
+
+@section js{
+
+    <!-- TABLE CLOTH -->
+    <script type="text/javascript" src="~/Content/Admin/js/tablecloth/js/jquery.tablecloth.js"></script>
+    <script type="text/javascript" src="~/Content/Admin/js/tablecloth/js/jquery.tablesorter.min.js"></script>
+
+    <script>
+		jQuery(document).ready(function() {
+			App.setPage("simple_table");  //Set current page
+			App.init(); //Initialise plugins and elements
+		});
+    </script>
+    <!-- /JAVASCRIPTS -->
+}
+
+<div class="container">
+    <div class="row">
+        <div id="content" class="col-lg-12">
+            <!-- PAGE HEADER-->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-header">
+                        <!-- STYLER -->
+                        <!-- /STYLER -->
+                        <!-- BREADCRUMBS -->
+                        <ul class="breadcrumb">
+                            <li>
+                                <i class="fa fa-home"></i>
+                                <a href="@Url.Action("Index","Home")">Home</a>
+                            </li>
+                            <li>Cadastro de Fotos</li>
+                        </ul>
+                        <!-- /BREADCRUMBS -->
+                        <div class="description">
+                            Cadastre uma nova Foto!
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /PAGE HEADER -->
+            <!-- SIMPLE STRIPED -->
+            <div class="row">
+
+                <div class="col-md-12 altura-crud">
+                    <div class="col-md-6 botao-cadastar-crud">
+                        <a href="~/Admin/@ViewBag.Controller/Create">
+                            <button class="btn btn-default tamanho-botao-cadastrar"> Cadastrar</button>
+                        </a>
+                    </div>
+                 
+                    <!-- BOX -->
+                    <div class="box border blue">
+                        <div class="box-title">
+                            <h4><i class="fa fa-table"></i>Todas As Fotos</h4>
+
+                        </div>
+                        <div class="box-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Status</th>
+                                        <th>Categoria</th>
+                                        <th>Imagem</th>
+                                        <th>Nome</th>
+                                        <th class="text-center">Editar</th>
+                                        <th class="text-center">Deletar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td class="crud-index-foto">@item.Status.Nome</td>
+                                            <td class="crud-index-foto">@item.CategoriaFoto.Nome</td>
+                                            <td><img class="img-responsive tamanho-img-fotos-gerais" src="@Href(UI.Web.Helpers.Caminho.Foto() + item.Imagem)"/></td>
+                                            <td class="crud-index-foto">@item.NomeFoto</td>
+                                             <td class="text-center">
+                                                <a href="@Url.Action("Edit", ViewBag.Controller, new { id = item.FotoId })">
+                                                    <i class="fa fa-edit crud-index-foto"></i>
+                                                </a>
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="@Url.Action("Delete", ViewBag.Controller, new { id = item.FotoId })" onclick="return DeleteFoto()" class="delete-item">
+                                                    <i class="fa fa-trash-o crud-index-foto"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /BOX -->
+                </div>
+            </div>
+            <!-- SIMPLE STRIPED -->
+        </div>
+        <div class="footer-tools">
+            <span class="go-top">
+                <i class="fa fa-chevron-up"></i> Top
+            </span>
+        </div>
+    </div><!-- /CONTENT-->
+    <div class="separator"></div>
+</div>
+
+<script>
+    function DeleteFoto() {
+        return confirm("Tem certeza que irá excluir esta Foto?")
+    }
+</script>

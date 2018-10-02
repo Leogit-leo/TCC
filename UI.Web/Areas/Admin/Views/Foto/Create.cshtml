@@ -1,0 +1,87 @@
+﻿@model Aplicacao.Core.Dominio.Foto
+@{
+    Layout = "../Shared/Layout.cshtml";
+    ViewBag.Title = "Foto";
+    var Status = ViewBag.Status as List<Aplicacao.Core.Dominio.Status>;
+    var Categorias = ViewBag.Categoria as List<Aplicacao.Core.Dominio.CategoriaFoto>;
+    var Funcionarios = ViewBag.Funcionario as List<Aplicacao.Core.Dominio.Funcionario>;
+}
+@using (Html.BeginForm("Create", "Foto", FormMethod.Post, new { @class = "form-ajx" }))
+{
+    <div class="panel panel-white">
+        <div class="panel-heading clearfix">
+            <h4 class="panel-title">Cadastrar @ViewBag.TitulosForm</h4>
+        </div>
+        <div class="panel-body">
+            <div class="box-inner">
+                <div class="box-content">
+                 
+                    <div class="form-group col-md-12">
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Status)
+                        </div>
+                       @Html.DropDownListFor(model=> model.StatusId , new SelectList(Status,"StatusId","Nome"), new { @class="form-control"})
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.CategoriaFoto)
+                        </div>
+                        @Html.DropDownListFor(model => model.CategoriaFotoId, new SelectList(Categorias, "CategoriaFotoId", "Nome"), new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Funcionario)
+                        </div>
+                        @Html.DropDownListFor(model => model.FuncionarioId, new SelectList(Funcionarios, "FuncionarioId", "Nome"), new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.NomeFoto)
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextBoxFor(model => model.NomeFoto, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => Model.NomeFoto)
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Imagem)
+                        </div>
+                        <div class="editor-field">
+                           <input type="file" name="file" class="form-control"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Descricao)
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextAreaFor(model => model.Descricao, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <button type="submit" class="btn btn-success btn-block">Salvar</button>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.ActionLink("Cancelar", "Index", "Foto", new object { }, new { @class = "btn btn-danger btn-block" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+
+<script type="text/javascript">
+    var UrlDestino = '@Url.Action("Index")';
+</script>

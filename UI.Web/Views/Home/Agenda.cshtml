@@ -1,0 +1,187 @@
+﻿@{
+    ViewBag.Title = "Agenda";
+    Layout = "../Shared/Layout.cshtml";
+    var Funcionarios = ViewBag.Funcionarios as List<Aplicacao.Core.Dominio.Funcionario>;
+    var Clientes = ViewBag.Clientes as List<Aplicacao.Core.Dominio.Cliente>;
+    var userLogado = UI.Web.Helpers.UserLogin.GetUsuarioAdmin();
+
+}
+
+@section css{
+
+    <!--fullCalendar-->
+    <link href="~/Content/Plugin/fullcalendar-3.4.0/fullcalendar.css" rel="stylesheet" />
+    <!-- FULL CALENDAR -->
+    <link rel="stylesheet" type="text/css" href="~/Content/Site/js/fullcalendar/fullcalendar.min.css" />
+
+    <!-- UNIFORM -->
+    <link rel="stylesheet" type="text/css" href="~/Content/Site/js/uniform/css/uniform.default.min.css" />
+
+}
+
+@section js{
+
+    <!-- UNIFORM -->
+    <script type="text/javascript" src="~/Content/Site/js/uniform/jquery.uniform.min.js"></script>
+    <!-- BLOCK UI -->
+    <script type="text/javascript" src="~/Content/Site/js/jQuery-BlockUI/jquery.blockUI.min.js"></script>
+    <!-- FULL CALENDAR -->
+    <script type="text/javascript" src="~/Content/Site/js/fullcalendar/fullcalendar.min.js"></script>
+
+    <!--fullCalendar-->
+    <script src="~/Content/Plugin/fullcalendar-3.4.0/lib/moment.min.js"></script>
+    <script src="~/Content/Plugin/fullcalendar-3.4.0/fullcalendar.js"></script>
+
+
+}
+<!-- /SAMPLE BOX CONFIGURATION MODAL FORM-->
+<div class="container">
+    <div class="row">
+        <div id="content" class="col-lg-12">
+            <!-- PAGE HEADER-->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-header">
+                        <!-- STYLER -->
+                        <!-- /STYLER -->
+                        <!-- BREADCRUMBS -->
+                        <ul class="breadcrumb">
+                            <li>
+                                <i class="fa fa-home"></i>
+                                <a href="@Url.Action("Index","Home")">Home</a>
+                            </li>
+                            <li>Agenda</li>
+                        </ul>
+                        <!-- /BREADCRUMBS -->
+                        <div class="clearfix">
+                            <h3 class="content-title pull-left">Agenda</h3>
+                        </div>
+                        <div class="description">Senhor(a) @userLogado.Nome , veja sua agenda completa e mantenha-se atualizado(a)!</div>
+                    </div>
+                </div>
+            </div>
+            <!-- /PAGE HEADER -->
+            <!-- CALENDAR & CHAT -->
+            <div class="col-md-12">
+
+                <div id='calendar' class="tamanho-calendario"></div>
+
+                <!--Modal-->
+                <div class="modal fade" id="startmodalfuncionario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Agendamento</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+
+                                <form class="form-horizontal form-ajx" role="form" action="@Url.Action("","")" method="post">
+                                    <input type="hidden" name="AgendaId" id="idagenda" />
+
+
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Funcionario</label>
+                                        <div class="col-sm-9">
+
+                                            <label id="nomefuncionarioSelecionado" class="modal-info-agenda"></label>
+
+                                            @*<select class="form-control input-sm" id="funcionarioSelecionado" name="FuncionarioId" onchange="loadServicosFuncionarios($(this).val() , 0)">
+
+                                                    @foreach (var funcionario in Funcionarios)
+                                                    {
+                                                        <option value="@funcionario.FuncionarioId">@funcionario.Nome</option>
+                                                    }
+                                                </select>*@
+                                        </div>
+                                    </div>
+
+                                    @*<div id="serv-fun"></div>*@
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Serviço</label>
+                                        <div class="col-sm-9">
+                                            <label id="nomeservicoSelecionado" class="modal-info-agenda"></label>
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Cliente</label>
+                                        <div class="col-sm-9">
+                                            <label id="nomeclienteSelecionado" class="modal-info-agenda"></label>
+                                            @*<select class="form-control input-sm" name="ClienteId" id="clienteSelecionado">
+                                                @foreach (var cliente in Clientes)
+                                                {
+                                                    <option value="@cliente.ClienteId">@cliente.Nome</option>
+                                                }
+                                            </select>*@
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Data</label>
+                                        <div class="col-sm-9">
+                                            @*<input class="form-control input-sm" id="dataAgendamento" data-mask="99/99/9999" name="DataAgendamento" type="text">*@
+                                            <label id="textodataAgendamento" class="modal-info-agenda"></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Inicio</label>
+                                        <div class="col-sm-9">
+                                            @*<input class="form-control input-sm" name="Inicio" type="time" id="inicio">*@
+                                            <label id="textoinicio" class="modal-info-agenda"></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Fim</label>
+                                        <div class="col-sm-9">
+                                            @*<input class="form-control input-sm" name="Fim" type="time" id="fim">*@
+                                            <label id="textofim" class="modal-info-agenda"></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Pago</label>
+                                        <div class="col-sm-9">
+
+                                            @*<select class="form-control input-sm" name="Pago" id="servicopago">
+                                                <option value="true">Sim</option>
+                                                <option value="false">Não</option>
+                                            </select>*@
+
+                                            <label id="textoservicopago" class="modal-info-agenda"></label>
+
+                                        </div>
+                                       
+                                    </div>
+
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                        @*<button type="submit" class="btn btn-primary">Salvar Alterações</button>*@
+                                    </div>
+                                </form>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /CALENDAR & CHAT -->
+            <div class="footer-tools">
+                <span class="go-top">
+                    <i class="fa fa-chevron-up"></i> Top
+                </span>
+            </div>
+        </div><!-- /CONTENT-->
+    </div>
+</div>
+
+
+
+
+

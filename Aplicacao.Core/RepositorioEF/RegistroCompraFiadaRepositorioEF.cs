@@ -1,0 +1,14 @@
+﻿using Aplicacao.Core.Dominio;
+using Aplicacao.Core.RepositorioEF.Base;
+using Aplicacao.Core.RepositorioEF.Contexto;
+
+namespace Aplicacao.Core.RepositorioEF
+{
+    public class RegistroCompraFiadaRepositorioEF : Repositorio<RegistroCompraFiada>
+    {
+        public RegistroCompraFiadaRepositorioEF(BancoContexto repo)
+            : base(repo)
+        {
+        }
+    }
+}

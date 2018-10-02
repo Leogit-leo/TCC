@@ -1,0 +1,98 @@
+﻿@model Aplicacao.Core.Dominio.RegistroCompraFiada
+@{
+    ViewBag.Title = "EditProdutoFiado";
+    var Clientes = ViewBag.Clientes as List<Aplicacao.Core.Dominio.Cliente>;
+    var Produtos = ViewBag.Produtos as List<Aplicacao.Core.Dominio.Produto>;
+    var Quantidade = ViewBag.Quantidade as List<Aplicacao.Core.Dominio.ProdutoFiado>;
+    var Funcionarios = ViewBag.Funcionarios as List<Aplicacao.Core.Dominio.Funcionario>;
+}
+
+<form class="form-horizontal form-ajx" action="@Url.Action("EditProdutoFiado","CompraFiado")" method="post">
+    <input type="hidden" name="RegistroCompraFiadaId" value="@Model.RegistroCompraFiadaId" />
+    @Html.HiddenFor(model => model.DataCompra)
+    <input type="hidden" name="Tipo" value="produto" />
+    <div class="form-group">
+        <label class="col-md-3 control-label" for="e2">Cliente</label>
+        <div class="col-md-9">
+            <select name="ClienteId" class="form-control">
+
+                @foreach (var cliente in Clientes)
+                {
+                    <option value="@cliente.ClienteId" @((Model.ClienteId == cliente.ClienteId) ? "selected" : "")>@cliente.Nome</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-3 control-label" for="e2">Funcionario Realizou a Venda</label>
+        <div class="col-md-9">
+            <select name="FuncionarioId" class="form-control">
+                @foreach (var funcionario in Funcionarios)
+                {
+                    <option value="@funcionario.FuncionarioId" 
+                            @((Model.FuncionarioId == funcionario.FuncionarioId)?"selected":"")>@funcionario.Nome</option>
+                }
+            </select>
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <label class="col-md-3 control-label" for="e1">Data para Pagamento</label>
+        <div class="col-md-9">
+            <input type="datetime" data-mask="99/99/9999"  name="DataParaPagamento" value="@Model.DataParaPagamento" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-3 control-label" for="e2">Pago</label>
+        <div class="col-md-9">
+            <select name="Pago" class="form-control">
+                <option value="true" @((Model.Pago == true) ? "selected" : "")>Sim</option>
+                <option value="false" @((Model.Pago == false) ? "selected" : "")>Não</option>
+            </select>
+        </div>
+    </div>
+
+    <fieldset>
+        <legend>Selecionar Produtos e Quantidades</legend>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="e2">Produtos</label>
+            <div class="col-md-10">
+                @foreach (var produto in Produtos)
+            {
+                    <div class="row">
+                        <div class="col-md-5">
+                            <input type="checkbox" name="Produtos" value="@produto.ProdutoId"
+                                   @((Model.ProdutosFiado.Any(x => x.ProdutoId == produto.ProdutoId && x.RegistroCompraFiadaId == Model.RegistroCompraFiadaId) ? "checked" : "")) />
+                            <span>@produto.Nome</span>
+                        </div>
+                        <div class="col-md-3">
+                            @if (Quantidade.Any(x => x.ProdutoId == produto.ProdutoId))
+                            {
+                                <label>QTDE:</label>
+                                <input class="qtde-edit-prod-fiado" type="text" name="Quantidade_@produto.ProdutoId" value="@Quantidade.Where(x => x.ProdutoId == produto.ProdutoId).FirstOrDefault().Quantidade" />
+                            }
+                            else
+                            {
+                                <label>QTDE:</label>
+                                <input class="qtde-edit-prod-fiado" type="text" name="Quantidade_@produto.ProdutoId" />
+                            }
+
+                        </div>
+                        <div class="col-md-4">
+                            <span>Disponiveis :@produto.Quantidade </span>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </fieldset>
+    <div class="form-group">
+        <div class="col-md-12">
+            <button class="btn btn-block" type="submit">Registrar Compra Fiada</button>
+        </div>
+    </div>
+</form>

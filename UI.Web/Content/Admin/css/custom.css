@@ -1,0 +1,123 @@
+.altura-crud{
+    padding-top: 25px !important;
+}
+.tamanho-botao-cadastrar{
+            width: 241px;
+    margin-bottom: 12px;
+    
+}
+.tamanho-campo-pesquisar{
+        width: 210px;
+        height: 30px;
+}
+.botao-pesquisar-crud{
+        height: 26px;
+}
+
+.botao-cadastar-crud{
+        padding-left: 0px;
+}
+.posicao-user-logado{
+        padding-left: 172px;
+}
+.posicao-servico-perfilusuario{
+    padding-left: 188px;
+}
+.botao-form-perfilusuario{
+    padding-left: 122px;
+    padding-top: 23px;
+}
+.notificacoes-usuario{
+    padding-top: 70px;
+}
+.formatar-pesquisar-crud{
+    padding-bottom: 20px !important;
+}
+.tamanho-img-notificacao{
+       height: 40px;
+    width: 50px;
+    margin-left: -14px;
+}
+.cor-visualizada{
+       background-color: #F4F9FD;
+}
+.cor-visualizada button i{
+       color: #00ff33;
+}
+.qtde-registro-prod{
+    padding-right: 4px;
+}
+.titulo-registro-compra th{
+        padding-right: 50px;
+}
+.itens-registro-compra td{
+    padding-right: 35px;
+}
+.botao-cadastrar-fiado a{
+    background:#5e87b0;
+    color:#fff;
+}
+.botao-cadastrar-fiado{
+        padding: 0px 0px 5px 0px;
+}
+.btn-cancelar{
+    background:#ff0000;
+}
+.tamanho-qtde{
+    width: 50px;
+}
+.tamanho-qtde-editar{
+    width: 35px !important;
+}
+.botao-voltar-compra-prod a{
+    background: red;
+    color: white;
+}
+.botao-voltar-compra-prod a:hover{
+    background: red;
+    color: white;
+}
+.botao-voltar-compra-prod{
+    padding: 20px 0 5px 0;
+}
+.qtde-edit-prod-fiado{
+    width: 33px;
+}
+.cor-ativo{
+    color:#00ff00;
+}
+.cor-inativo{
+    color:#ff0000;
+}
+.espaco-prod-fiado{
+    padding-bottom: 4px;
+}
+.tamanho-img-fotos-gerais{
+    max-height: 100px;
+}
+.crud-index-foto{
+    font-size: 20px;
+    padding-top: 44px !important;
+}
+.cor-modal-header-edit-agenda{
+    background: #656d28 !important;
+    color: white !important;
+}
+.selecionar-mes-home{
+    padding-bottom: 30px;
+    padding-top: 30px;
+}
+.cor-sel-mes{
+    font-size: 25px;
+    color: #cfdc4b;
+    font-weight: 600;
+}
+.btn-home-mes{
+    width: 50%;
+    background: #d6e16c;
+    color: white;
+}
+
+
+
+

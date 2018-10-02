@@ -1,0 +1,245 @@
+﻿@{
+    ViewBag.Title = "Compra de Produto";
+    Layout = "../Shared/Layout.cshtml";
+    var Clientes = ViewBag.Cliente as List<Aplicacao.Core.Dominio.Cliente>;
+    var Produtos = ViewBag.Produto as List<Aplicacao.Core.Dominio.Produto>;
+    var Compra = ViewBag.ItensCompra as List<Aplicacao.Core.Dominio.ItemCompra>;
+}
+
+
+@section css{
+
+    <!-- TYPEAHEAD -->
+    <link rel="stylesheet" type="text/css" href="~/Content/Admin/js/typeahead/typeahead.css" />
+    <!-- FILE UPLOAD -->
+    <link rel="stylesheet" type="text/css" href="~/Content/Admin/js/bootstrap-fileupload/bootstrap-fileupload.min.css" />
+    <!-- SELECT2 -->
+    <link rel="stylesheet" type="text/css" href="~/Content/Admin/js/select2/select2.min.css" />
+    <!-- UNIFORM -->
+    <link rel="stylesheet" type="text/css" href="~/Content/Admin/js/uniform/css/uniform.default.min.css" />
+    <!-- JQUERY UPLOAD -->
+    <!-- blueimp Gallery styles -->
+    <link rel="stylesheet" href="~/Content/Admin/js/blueimp/gallery/blueimp-gallery.min.css">
+    <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+    <link rel="stylesheet" href="~/Content/Admin/js/jquery-upload/css/jquery.fileupload.css">
+    <link rel="stylesheet" href="~/Content/Admin/js/jquery-upload/css/jquery.fileupload-ui.css">
+
+
+}
+
+@section js{
+
+    <!-- TYPEHEAD -->
+    <script type="text/javascript" src="~/Content/Admin/js/typeahead/typeahead.min.js"></script>
+    <!-- AUTOSIZE -->
+    <script type="text/javascript" src="~/Content/Admin/js/autosize/jquery.autosize.min.js"></script>
+    <!-- COUNTABLE -->
+    <script type="text/javascript" src="~/Content/Admin/js/countable/jquery.simplyCountable.min.js"></script>
+
+    <!-- FILE UPLOAD -->
+    <script type="text/javascript" src="~/Content/Admin/js/bootstrap-fileupload/bootstrap-fileupload.min.js"></script>
+    <!-- SELECT2 -->
+    <script type="text/javascript" src="~/Content/Admin/js/select2/select2.min.js"></script>
+    <!-- UNIFORM -->
+    <script type="text/javascript" src="~/Content/Admin/js/uniform/jquery.uniform.min.js"></script>
+    <!-- JQUERY UPLOAD -->
+    <!-- The Templates plugin is included to render the upload/download listings -->
+    <script src="~/Content/Admin/js/blueimp/javascript-template/tmpl.min.js"></script>
+    <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
+    <script src="~/Content/Admin/js/blueimp/javascript-loadimg/load-image.min.js"></script>
+    <!-- The Canvas to Blob plugin is included for image resizing functionality -->
+    <script src="~/Content/Admin/js/blueimp/javascript-canvas-to-blob/canvas-to-blob.min.js"></script>
+    <!-- blueimp Gallery script -->
+    <script src="~/Content/Admin/js/blueimp/gallery/jquery.blueimp-gallery.min.js"></script>
+
+    <!-- CUSTOM SCRIPT -->
+    <script src="~/Content/Admin/js/script.js"></script>
+    <script>
+        jQuery(document).ready(function () {
+            App.setPage("forms");  //Set current page
+            App.init(); //Initialise plugins and elements
+        });
+    </script>
+    <!-- /JAVASCRIPTS -->
+
+}
+
+<!-- SAMPLE BOX CONFIGURATION MODAL FORM-->
+<div class="modal fade" id="box-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Box Settings</h4>
+            </div>
+            <div class="modal-body">
+                Here goes box setting content.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /SAMPLE BOX CONFIGURATION MODAL FORM-->
+
+<div class="container">
+    <div class="row">
+        <div id="content" class="col-lg-12">
+            <!-- PAGE HEADER-->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-header">
+                        <!-- STYLER -->
+                        <!-- /STYLER -->
+                        <!-- BREADCRUMBS -->
+                        <ul class="breadcrumb">
+                            <li>
+                                <i class="fa fa-home"></i>
+                                <a href="@Url.Action("Index","Home")">Home</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index","Compra")">Registro de Compras de Produtos</a>
+                            </li>
+                            <li>Registrar Compra</li>
+                        </ul>
+                        <!-- /BREADCRUMBS -->
+                      
+                        <div class="description">Registre a compra de produto ou consulte alguma compra realizada</div>
+                    </div>
+                </div>
+            </div>
+            <!-- /PAGE HEADER -->
+            <div class="col-md-4 col-md-offset-8 botao-voltar-compra-prod">
+                <a href="@Url.Action("Index","Compra")" class="btn btn-block">Voltar</a>
+            </div>
+            <div class="separator"></div>
+            <!-- ADVANCED -->
+            <div class="row">
+               
+                <div class="col-md-12">
+                    <!-- BOX -->
+                    <div class="box border green">
+                        <div class="box-title">
+                            <h4><i class="fa fa-bars"></i>Registrar Compra de Produto</h4>
+                        </div>
+                        <div class="box-body">
+                            <form class="form-horizontal form-ajx" action="@Url.Action("RegistrarCompra","Compra")" method="post">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="e1">Cliente</label>
+                                    <div class="col-md-9">
+                                        <select name="ClienteId" class="col-md-12 form-control">
+                                            <option value="0">Selecione...</option>
+                                            @foreach (var cliente in Clientes)
+                                            {
+                                                <option value="@cliente.ClienteId">@cliente.Nome</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <fieldset>
+                                    <legend>Selecionar Produtos e Quantidades</legend>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Produtos </label>
+                                        <div class="col-md-10">
+                                            @foreach (var produto in Produtos)
+                                            {
+                                                <div class="col-md-12">
+                                                    <div class="col-md-6">
+                                                        <label> <input type="checkbox" name="ProdutosSelecionados" value="@produto.ProdutoId"> @produto.Nome </label>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="qtde-registro-prod">Quantidade </label><input type="text" name="Quantidade_Produto_@produto.ProdutoId" value="" />
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label> Disponíveis</label> @produto.Quantidade
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <button type="submit"> Salvar Compra</button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /BOX -->
+                </div>
+            </div>
+            <!-- /ADVANCED -->
+            <!-- /BORDERED HOVER -->
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- BOX -->
+                    <div class="box border green">
+                        <div class="box-title">
+                            <h4><i class="fa fa-bar-chart-o"></i> Consultar Compra Registrada</h4>
+                        </div>
+                        <div class="box-body">
+                            <label>Digite o Nome ou CPF do Cliente:</label>
+                            <form action="@Url.Action("Create","Compra")" method="get">
+                                <input type="text" name="s" value="@Request.Params["s"]" />
+                                <button type="submit">Submeter</button>
+                            </form>
+
+                            <table id="example-stats">
+                                <thead>
+                                    <tr class="titulo-registro-compra">
+                                        <th>Numero Compra</th>
+
+                                        <th> Data / Hora</th>
+
+                                        <th>Nome Cliente</th>
+
+                                        <th>CPF</th>
+
+                                        <th>Produto</th>
+
+                                        <th>Quantidade</th>
+
+                                        <th>Valor Total</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var item in Compra)
+                                    {
+                                        <tr class="ss_tr_odd itens-registro-compra">
+                                            <td>@item.RegistroCompraId</td>
+
+                                            <td>@item.RegistroCompra.DataCompra</td>
+
+                                            <td>@item.RegistroCompra.Cliente.Nome</td>
+
+                                            <td>@item.RegistroCompra.Cliente.CPF</td>
+
+                                            <td>@item.Produto.Nome</td>
+
+                                            <td>@item.Quantidade</td>
+
+                                            <td>@item.valorTotal</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /BOX -->
+                </div>
+            </div>
+            <!-- /BORDERED HOVER -->
+
+
+
+
+            <div class="separator"></div>
+
+            <div class="footer-tools">
+                <span class="go-top">
+                    <i class="fa fa-chevron-up"></i> Top
+                </span>
+            </div>
+        </div><!-- /CONTENT-->
+    </div>
+</div>

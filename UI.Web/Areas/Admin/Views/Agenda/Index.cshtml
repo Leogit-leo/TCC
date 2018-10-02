@@ -1,0 +1,139 @@
+﻿@using PagedList
+@using PagedList.Mvc
+
+@model IPagedList<Aplicacao.Core.Dominio.Agenda>
+@{
+    Layout = "../Shared/Layout.cshtml";
+    ViewBag.Title = "Agendamentos Geral";
+}
+
+@section js{
+     	<!-- TABLE CLOTH -->
+<script type="text/javascript" src="~/Content/Admin/js/tablecloth/js/jquery.tablecloth.js"></script>
+<script type="text/javascript" src="~/Content/Admin/js/tablecloth/js/jquery.tablesorter.min.js"></script>
+
+<script>
+		jQuery(document).ready(function() {
+			App.setPage("simple_table");  //Set current page
+			App.init(); //Initialise plugins and elements
+		});
+</script>
+<!-- /JAVASCRIPTS -->
+
+}
+
+<div class="container">
+    <div class="row">
+        <div id="content" class="col-lg-12">
+            <!-- PAGE HEADER-->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-header">
+                        <!-- STYLER -->
+                        <!-- /STYLER -->
+                        <!-- BREADCRUMBS -->
+                        <ul class="breadcrumb">
+                            <li>
+                                <i class="fa fa-home"></i>
+                                <a href="@Url.Action("Index","Home")">Home</a>
+                            </li>
+                            <li>Visão Geral de Agendamentos</li>
+                        </ul>
+                        <!-- /BREADCRUMBS -->
+                        <div class="description">
+                           Veja por aqui todos os agendamentos, ordenados por data de forma decrescente.<br />
+                           Por aqui você pode fazer consulta de forma rápida!
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /PAGE HEADER -->
+
+            <!-- SIMPLE STRIPED -->
+            <div class="row">
+
+                <div class="col-md-12 altura-crud">
+                  
+                    <div class="col-md-6 formatar-pesquisar-crud">
+                        <form method="get" action="@Url.Action("Index","Agenda")">
+                            <span> Pesquisar</span>
+                            <input class="tamanho-campo-pesquisar" type="text" name="s" value="@Request.Params["s"]" />
+                            <button class="botao-pesquisar-crud" type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                    <!-- BOX -->
+                    <div class="box border blue">
+                        <div class="box-title">
+                            <h4><i class="fa fa-table"></i>Todos os Agendamentos</h4>
+
+                        </div>
+                        <div class="box-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Funcionário</th>
+                                        <th>Serviço</th>
+                                        <th>Cliente</th>
+                                        <th>Data</th>
+                                        <th>Início</th>
+                                        <th>Fim</th>
+                                        <th>Pago</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.Funcionario.Nome</td>
+                                            <td>@item.Servico.Nomeservico</td>
+                                            <td>@item.Cliente.Nome</td>
+                                            <td>@item.Inicio.Date.ToString("dd/MM/yyyy")</td>
+                                            <td>@item.Inicio.TimeOfDay</td>
+                                            <td>@item.Fim.TimeOfDay</td>
+                                            <td>@((item.Pago == true)? "Sim" : "Não")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /BOX -->
+                </div>
+
+                <div class="page-pagination col-sm-12 col-md-12">
+                    @if (Model.HasNextPage || Model.HasPreviousPage)
+            {
+                        <div style="text-align: center">
+                            @Html.PagedListPager(Model, (page) => Url.Action("Index", new { page = page }), PagedListRenderOptions.Classic)
+                        </div>
+                    }
+                </div>
+
+
+            </div>
+            <!-- SIMPLE STRIPED -->
+        </div>
+        <div class="footer-tools">
+            <span class="go-top">
+                <i class="fa fa-chevron-up"></i> Top
+            </span>
+        </div>
+    </div><!-- /CONTENT-->
+    <div class="separator"></div>
+</div>
+
+
+
+
+@*@if (Model.Count() == 0)
+    {
+        <h4 class="text-center">Não há registros. <a href="@Url.Action("Create", ViewBag.Controller)">Clique aqui para cadastrar.</a></h4>
+    }*@
+
+
+
+
+
+
+
+

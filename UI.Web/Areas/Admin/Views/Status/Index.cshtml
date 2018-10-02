@@ -1,0 +1,114 @@
+﻿@model List<Aplicacao.Core.Dominio.Status>
+@{ 
+    Layout = "../Shared/Layout.cshtml";
+    ViewBag.Title = "Status";
+
+}
+
+@section js{
+
+    <!-- TABLE CLOTH -->
+    <script type="text/javascript" src="~/Content/Admin/js/tablecloth/js/jquery.tablecloth.js"></script>
+    <script type="text/javascript" src="~/Content/Admin/js/tablecloth/js/jquery.tablesorter.min.js"></script>
+
+    <script>
+		jQuery(document).ready(function() {
+			App.setPage("simple_table");  //Set current page
+			App.init(); //Initialise plugins and elements
+		});
+    </script>
+    <!-- /JAVASCRIPTS -->
+}
+
+<div class="container">
+    <div class="row">
+        <div id="content" class="col-lg-12">
+            <!-- PAGE HEADER-->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-header">
+                        <!-- STYLER -->
+                        <!-- /STYLER -->
+                        <!-- BREADCRUMBS -->
+                        <ul class="breadcrumb">
+                            <li>
+                                <i class="fa fa-home"></i>
+                                <a href="@Url.Action("Index","Home")">Home</a>
+                            </li>
+                            <li>Cadastro de Statuss</li>
+                        </ul>
+                        <!-- /BREADCRUMBS -->
+                        <div class="description">
+                            Cadastre um novo Status!
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /PAGE HEADER -->
+            <!-- SIMPLE STRIPED -->
+            <div class="row">
+
+                <div class="col-md-12 altura-crud">
+                    <div class="col-md-6 botao-cadastar-crud">
+                        <a href="~/Admin/@ViewBag.Controller/Create">
+                            <button class="btn btn-default tamanho-botao-cadastrar"> Cadastrar</button>
+                        </a>
+                    </div>
+                 
+                    <!-- BOX -->
+                    <div class="box border blue">
+                        <div class="box-title">
+                            <h4><i class="fa fa-table"></i>Status</h4>
+
+                        </div>
+                        <div class="box-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Bloquear</th>
+                                        <th class="text-center">Editar</th>
+                                        <th class="text-center">Deletar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.Nome</td>
+                                            <td>@((item.Bloquear == true)?"Sim":"Não")</td>
+                                            <td class="text-center">
+                                                <a href="@Url.Action("Edit", ViewBag.Controller, new { id = item.StatusId })">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="@Url.Action("Delete", ViewBag.Controller, new { id = item.StatusId })" onclick="return DeleteStatus()" class="delete-item">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /BOX -->
+                </div>
+            </div>
+            <!-- SIMPLE STRIPED -->
+        </div>
+        <div class="footer-tools">
+            <span class="go-top">
+                <i class="fa fa-chevron-up"></i> Top
+            </span>
+        </div>
+    </div><!-- /CONTENT-->
+    <div class="separator"></div>
+</div>
+
+<script>
+    function DeleteStatus() {
+        return confirm("Tem certeza que irá excluir este Status?")
+    }
+</script>

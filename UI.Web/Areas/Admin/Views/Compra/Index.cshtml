@@ -1,0 +1,151 @@
+﻿@model List<Aplicacao.Core.Dominio.RegistroCompra>
+@{
+    ViewBag.Title = "Index";
+    Layout = "../Shared/Layout.cshtml";
+    var Clientes = ViewBag.Cliente as List<Aplicacao.Core.Dominio.Cliente>;
+    var Produtos = ViewBag.Produto as List<Aplicacao.Core.Dominio.Produto>;
+    ViewBag.Title = "Compra de Produto";
+}
+
+@section css{
+
+}
+
+@section js{
+    <!-- TABLE CLOTH -->
+    <script type="text/javascript" src="~/Content/Admin/js/tablecloth/js/jquery.tablecloth.js"></script>
+    <script type="text/javascript" src="~/Content/Admin/js/tablecloth/js/jquery.tablesorter.min.js"></script>
+    <script>
+        jQuery(document).ready(function () {
+            App.setPage("simple_table");  //Set current page
+            App.init(); //Initialise plugins and elements
+        });
+    </script>
+    <!-- /JAVASCRIPTS -->
+
+}
+
+<div class="container">
+    <div class="row">
+        <div id="content" class="col-lg-12">
+            <!-- PAGE HEADER-->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-header">
+                        <!-- STYLER -->
+                        <!-- /STYLER -->
+                        <!-- BREADCRUMBS -->
+                        <ul class="breadcrumb">
+                            <li>
+                                <i class="fa fa-home"></i>
+                                <a href="@Url.Action("Index","Home")">Home</a>
+                            </li>
+                            <li>Registro de compras de produtos</li>
+                        </ul>
+                        <!-- /BREADCRUMBS -->
+                        <div class="description">Lista com todos os registros de compras de produtos</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- /BORDERED HOVER -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-4 botao-cadastrar-fiado">
+                        <a href="@Url.Action("Create","Compra")" class="btn btn-block"> Cadastrar compra</a>
+                    </div>
+
+                    <div class="box border green">
+                        <div class="box-title">
+                            <h4><i class="fa fa-bar-chart-o"></i>Registro de compra de produtos</h4>
+                        </div>
+                        <div class="box-body">
+                            <table id="example-stats">
+                                <thead>
+                                    <tr>
+                                        <th>Data Compra</th>
+                                        <th>Cliente</th>
+                                        <th>Preço (R$)</th>
+                                        <th>Editar</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr class="ss_tr_odd">
+                                            <td>@item.DataCompra</td>
+                                            <td>@item.Cliente.Nome</td>
+                                            <td>
+                                                @{
+                                                    decimal vTotal = 0;
+                                                }
+                                                @foreach (var valor in item.Itens)
+                                                {
+                                                    vTotal = vTotal + valor.valorTotal;
+
+                                                }
+                                                @vTotal
+                                            </td>
+                                            <td>
+                                                <button type="button" onclick="EditCompra('@item.RegistroCompraId')"><i class="fa fa-pencil-square-o"></i></button>
+                                            </td>
+                                        </tr>
+                                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /BOX -->
+                </div>
+            </div>
+            <!-- /BORDERED HOVER -->
+        </div>
+        <div class="footer-tools">
+            <span class="go-top">
+                <i class="fa fa-chevron-up"></i> Top
+            </span>
+        </div>
+    </div><!-- /CONTENT-->
+    <div class="separator"></div>
+</div>
+
+<div id="edit-compra" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Editar Compra de Produto</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function EditCompra(idCompra) {
+        $.get('@Url.Action("LoadFormEditCompra", "Compra")', 'id=' + idCompra, function (data) {
+            $('#edit-compra').find('.modal-body').html(data);
+            $('#edit-compra').modal('show');
+            FormAJX();
+        })
+    }
+
+    @*function DeletarCompraFiado(val) {
+        var conf = confirm("Tem certeza que esta deletando este Produto ou Servico á Prazo?")
+        if (conf == true) {
+            $.post('@Url.Action("Delete", "CompraFiado")', 'id=' + val, function (data) {
+
+            });
+            location.reload();
+        }
+    }*@
+
+</script>
+

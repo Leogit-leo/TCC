@@ -1,0 +1,22 @@
+﻿@*@model Aplicacao.Core.Dominio.Funcionario
+@{
+    ViewBag.Title = "LoadServicoFuncionario";
+    var idServico = ViewBag.Servico;
+
+}
+
+<div class="form-group">
+    <label class="col-sm-3 control-label">Serviços</label>
+    <div class="col-sm-9">
+
+        <select class="form-control input-sm" id="servicoSelecionado" name="ServicoId">
+
+            @foreach (var servico in Model.Servicos)
+            {
+                <option value="@servico.Servico.ServicoId"
+                        @((servico.ServicoId == idServico)?"selected" :"")>@servico.Servico.Nomeservico</option>
+            }
+        </select>
+    </div>
+</div>*@
+

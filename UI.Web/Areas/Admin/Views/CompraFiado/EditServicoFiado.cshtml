@@ -1,0 +1,80 @@
+﻿@model Aplicacao.Core.Dominio.RegistroCompraFiada
+@{
+    ViewBag.Title = "EditServicoFiado";
+    var Clientes = ViewBag.Clientes as List<Aplicacao.Core.Dominio.Cliente>;
+    var Servicos = ViewBag.Servicos as List<Aplicacao.Core.Dominio.Servico>;
+    var Funcionarios = ViewBag.Funcionarios as List<Aplicacao.Core.Dominio.Funcionario>;
+}
+
+<form class="form-horizontal form-ajx" action="@Url.Action("EditServicoFiado","CompraFiado")" method="post">
+    <input type="hidden" name="RegistroCompraFiadaId" value="@Model.RegistroCompraFiadaId"/>
+    @Html.HiddenFor(model => model.DataCompra)
+    <input type="hidden" name="Tipo" value="servico" />
+    <div class="form-group">
+        <label class="col-md-3 control-label" for="e2">Cliente</label>
+        <div class="col-md-9">
+            <select name="ClienteId" class="form-control">
+                
+                @foreach (var cliente in Clientes)
+                {
+                    <option value="@cliente.ClienteId"@((Model.ClienteId == cliente.ClienteId)? "selected":"")>@cliente.Nome</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-3 control-label" for="e2">Funcionario</label>
+        <div class="col-md-9">
+            <select name="FuncionarioId" class="form-control">
+               
+                @foreach (var funcionario in Funcionarios)
+                {
+                    <option value="@funcionario.FuncionarioId" @((Model.FuncionarioId == funcionario.FuncionarioId)?"selected":"")>@funcionario.Nome</option>
+                }
+            </select>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label class="col-md-3 control-label" for="e1">Data para Pagamento</label>
+        <div class="col-md-9">
+            <input type="datetime" data-mask="99/99/9999" name="DataParaPagamento" value="@Model.DataParaPagamento" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-3 control-label" for="e2">Pago</label>
+        <div class="col-md-9">
+            <select name="Pago" class="form-control">
+                <option value="true"@((Model.Pago == true)?"selected":"")>Sim</option>
+                <option value="false"@((Model.Pago == false)?"selected":"")>Não</option>
+            </select>
+        </div>
+    </div>
+
+    <fieldset>
+        <legend>Selecione os Serviços</legend>
+        <div class="form-group">
+            <label class="col-md-3 control-label" for="e2">Servicos</label>
+            <div class="col-md-9">
+                @foreach (var servico in Servicos)
+            {
+                    <div class="col-md-12">
+                        <input type="checkbox" name="Servicos" value="@servico.ServicoId"
+                               @((Model.ServicosFiado.Any(x => x.ServicoId == servico.ServicoId && x.RegistroCompraFiadaId == Model.RegistroCompraFiadaId) ? "checked" : "")) />
+                        <span>@servico.Nomeservico</span>
+                    </div>
+                }
+            </div>
+        </div>
+    </fieldset>
+
+    <div class="form-group">
+        <div class="col-md-12">
+            <button class="btn btn-block" type="submit">Editar Serviço Fiado</button>
+        </div>
+    </div>
+</form>
+

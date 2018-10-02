@@ -1,0 +1,14 @@
+﻿@model Aplicacao.Core.Dominio.Produto
+@{
+    ViewBag.Title = "EditarEstoque";
+}
+
+<h4>Quantidade Atual : @Model.Quantidade</h4>
+
+<form action="@Url.Action("EditarEstoque","Produto")" method="post" class="form-ajx">
+    @Html.HiddenFor(x => x.ProdutoId)
+    @Html.HiddenFor(x=> x.StatusId)
+    <label> Digite a Quantidade Para adicionar no Estoque:</label>
+    <input type="text" name="Quantidade"/>
+    <button type="submit">Adicionar</button>
+</form>

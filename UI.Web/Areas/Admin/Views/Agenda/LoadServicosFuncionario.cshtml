@@ -1,0 +1,20 @@
+﻿@model Aplicacao.Core.Dominio.Funcionario
+
+@{
+    ViewBag.Title = "LoadServicosFuncionario";
+    int ServicoSelecionadoId = ViewBag.Servico;
+}
+<div class="form-group ">
+    <div class="editor-label">
+        Selecione um serviço
+    </div>
+    <div class="editor-field">
+        <select name="ServicoId" class="form-control">
+            <option>Selecione o serviço...</option>
+            @foreach (var Servico in Model.Servicos)
+            {
+                <option value="@Servico.ServicoId" @((Servico.ServicoId == ServicoSelecionadoId)? "selected" : "")>@Servico.Servico.Nomeservico</option>
+            }
+        </select>
+    </div>
+</div>

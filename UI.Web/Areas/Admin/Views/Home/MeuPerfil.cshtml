@@ -1,0 +1,346 @@
+﻿@model Aplicacao.Core.Dominio.Funcionario
+@{
+    ViewBag.Title = "MeuPerfil";
+    Layout = "../Shared/Layout.cshtml";
+    var Servicos = ViewBag.Servicos as IEnumerable<Aplicacao.Core.Dominio.Servico>;
+    var Funcionarios = ViewBag.Funcionarios as IEnumerable<Aplicacao.Core.Dominio.Funcionario>;
+
+   
+
+    var usuarioLogado = UI.Web.Helpers.UserLogin.GetUsuarioAdmin();
+    
+}
+
+@section css{
+
+    <!-- UNIFORM -->
+    <link rel="stylesheet" type="text/css" href="~/Content/Site/js/uniform/css/uniform.default.css" />
+}
+
+@section js{
+
+    <!-- UNIFORM -->
+    <script type="text/javascript" src="~/Content/Site/js/uniform/jquery.uniform.min.js"></script>
+
+    <script>
+        jQuery(document).ready(function () {
+            App.setPage("user_profile");  //Set current page
+            App.init(); //Initialise plugins and elements
+        });
+    </script>
+    <!-- /JAVASCRIPTS -->
+}
+
+<!-- SAMPLE BOX CONFIGURATION MODAL FORM-->
+<div class="modal fade" id="box-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Box Settings</h4>
+            </div>
+            <div class="modal-body">
+                Here goes box setting content.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /SAMPLE BOX CONFIGURATION MODAL FORM-->
+<div class="container">
+    <div class="row">
+        <div id="content" class="col-lg-12">
+            <!-- PAGE HEADER-->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-header">
+                        <!-- STYLER -->
+                        <!-- /STYLER -->
+                        <!-- BREADCRUMBS -->
+                        <ul class="breadcrumb">
+                            <li>
+                                <i class="fa fa-home"></i>
+                                <a href="@Url.Action("Index","Home")">Home</a>
+                            </li>
+                            <li>Meu Perfil</li>
+                        </ul>
+                        <!-- /BREADCRUMBS -->
+                        <div class="clearfix">
+                            <h3 class="content-title pull-left">@usuarioLogado.Nome</h3>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <!-- /PAGE HEADER -->
+            <!-- USER PROFILE -->
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- BOX -->
+                    <div class="box border">
+                        <div class="box-title">
+                            <h4><i class="fa fa-user"></i><span class="hidden-inline-mobile">Olá, @Model.Nome!</span></h4>
+                        </div>
+                        <div class="box-body">
+                            <div class="tabbable header-tabs user-profile">
+                                <ul class="nav nav-tabs">
+
+                                    <li><a href="#pro_edit" data-toggle="tab"><i class="fa fa-edit"></i> <span class="hidden-inline-mobile"> Minhas Mensagens</span></a></li>
+                                    <li class="active"><a href="#pro_overview" data-toggle="tab"><i class="fa fa-dot-circle-o"></i> <span class="hidden-inline-mobile">Meu Perfil</span></a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <!-- OVERVIEW -->
+                                    <div class="tab-pane fade in active" id="pro_overview">
+                                        <div class="row">
+                                            <!-- PROFILE PIC -->
+                                            <div class="col-md-3">
+                                                <div class="list-group">
+                                                    <li class="list-group-item zero-padding">
+                                                        <img class="img-responsive"  src="@Href(UI.Web.Helpers.Caminho.Usuario() + Model.Foto )">
+                                                    </li>
+                                                    <div class="list-group-item profile-details">
+                                                        <h2>@Model.Nome</h2>
+                                                        <p><i class="fa fa-user text-green"></i> @Model.Tipo</p>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <!-- /PROFILE PIC -->
+                                            <!-- PROFILE DETAILS -->
+                                            <div class="col-md-9">
+
+                                                <div class="box-body big">
+                                                    <h3 class="form-title">Editar Perfil</h3>
+                                                    <form class="form-horizontal form-ajx" role="form" action="@Url.Action("Edit","Funcionario")" method="post">
+                                                        <input type="hidden" name="FuncionarioId" value="@Model.FuncionarioId" />
+                                                        <input type="hidden" name="HiddenSenha" value="@Model.Senha" />
+                                                        <input type="hidden" name="HiddenConfSenha" value="@Model.ConfirmarSenha" />
+                                                        <input type="hidden" name="Foto" value="@Model.Foto" />
+                                                        <input type="hidden" name="StatusId" value="@Model.StatusId" />
+
+                                                        <div class="form-group">
+                                                            <label class="col-sm-3 control-label">Nome</label>
+                                                            <div class="col-sm-9">
+                                                                <input type="text" class="form-control" name="Nome" value="@Model.Nome">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-3 control-label">Endereço</label>
+                                                            <div class="col-sm-9">
+                                                                <input type="text" class="form-control" name="Endereco" value="@Model.Endereco">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-3 control-label">Telefone</label>
+                                                            <div class="col-sm-3">
+                                                                <input type="text" class="form-control" name="Telefone" value="@Model.Telefone">
+                                                            </div>
+
+                                                            <label class="col-sm-3 control-label">Salario</label>
+                                                            <div class="col-sm-3">
+                                                                <input type="text" class="form-control" name="Salario" value="@Model.Salario">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-3 control-label">Login</label>
+                                                            <div class="col-sm-3">
+                                                                <input type="text" class="form-control" name="Login" value="@Model.Login">
+                                                            </div>
+                                                            <label class="col-sm-3 control-label">Senha</label>
+                                                            <div class="col-sm-3">
+                                                                <input type="password" class="form-control" name="Senha">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-3 control-label">Confirmar Senha</label>
+                                                            <div class="col-sm-3">
+                                                                <input type="password" class="form-control" name="ConfirmarSenha">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 control-label">Carregar Foto</label>
+                                                            <div class="col-md-8">
+                                                                <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                                    <div class="input-group">
+                                                                        <div class="form-control uneditable-input">
+                                                                            <img class="img-responsive" id="output" />
+                                                                        </div>
+                                                                        <div class="input-group-btn">
+                                                                            <a class="btn btn-default btn-file">
+                                                                                <span class="fileupload-new">Escolher Foto</span>
+                                                                                <input type="file" accept="image/*" onchange="loadFile(event)" name="file" class="file-input" />
+                                                                            </a>
+                                                                            <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload">Remove</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-3 control-label">Email</label>
+                                                            <div class="col-sm-9">
+                                                                <input type="email" class="form-control" name="Email" value="@Model.Email">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-3 control-label">Tipo</label>
+                                                            <div class="col-sm-9">
+                                                                <select class="form-control" name="Tipo">
+                                                                    <option value="Gerente" @((Model.Tipo == "Gerente") ? "selected" : "")>Gerente</option>
+                                                                    <option value="Funcionario" @((Model.Tipo == "Funcionario") ? "selected" : "")>Funcionario</option>
+                                                                    <option value="Cliente" @((Model.Tipo == "Cliente") ? "selected" : "")>Cliente</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <label class="col-sm-3 control-label">Serviços</label>
+                                                            </div>
+                                                            <div class="col-sm-6 posicao-servico-perfilusuario">
+                                                                @foreach (var servico in Servicos)
+                                                                {
+                                                                    <div class="col-sm-12">
+                                                                        <label class="checkbox-inline">
+                                                                            <input type="checkbox" name="Servico" value="@servico.ServicoId" @((Model.Servicos.Any(x => x.ServicoId == servico.ServicoId)) ? "checked" : "")> @servico.Nomeservico
+                                                                        </label>
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group botao-form-perfilusuario">
+
+                                                            <div class="col-sm-4">
+                                                                <button type="submit" class="btn btn-block">Atualizar</button>
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <a href="@Url.Action("Index","Home")" class="btn btn-block">
+                                                                    Cancelar
+                                                                </a>
+                                                            </div>
+                                                        </div>
+
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <!-- /PROFILE DETAILS -->
+                                        </div>
+
+                                    </div>
+                                    <!-- /OVERVIEW -->
+                                    <!-- EDIT ACCOUNT -->
+                                    <div class="tab-pane fade" id="pro_edit">
+
+                                        <!-- ROW 2 -->
+                                        <div class="row">
+                                            <div class="col-md-6">
+
+                                                <div class="box border primary">
+                                                    <div class="box-title">
+                                                        <h4><i class="fa fa-bars"></i>Enviar Mensagem</h4>
+                                                    </div>
+                                                    <div class="box-body big">
+
+                                                        <form class="form-horizontal form-ajx" method="post" action="@Url.Action("CreateNotificacao","Home")">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-3 control-label">Título</label>
+                                                                <div class="col-sm-9">
+                                                                    <input type="text" class="form-control" name="Titulo">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-3 control-label">Destino</label>
+                                                                <div class="col-sm-9">
+                                                                    <select class="form-control" name="FuncionarioDestino">
+                                                                        <option value="0">Todos</option>
+                                                                        @foreach (var funcionario in Funcionarios)
+                                                                        {
+                                                                            <option value="@funcionario.FuncionarioId">@funcionario.Nome</option>
+                                                                        }
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-3 control-label">Mensagem</label>
+                                                                <div class="col-sm-9">
+                                                                    <textarea class="form-control" rows="3" name="Mensagem"></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="col-md-9 col-md-offset-3">
+                                                                    <button type="submit" class="form-control">Enviar</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-6 notificacoes-usuario">
+                                               
+                                                <div class="tab-content">
+                                                   
+                                                    <div class="tab-pane active" id="feed">
+                                                        <h3>Mensagens Recebidas</h3>
+                                                        <div class="scroller" data-height="250px" data-always-visible="1" data-rail-visible="1">
+                                                            <div id="ver-notificacoes">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /ROW 2 -->
+                                    </div>
+                                    <!-- /EDIT ACCOUNT -->
+
+                                </div>
+                            </div>
+                            <!-- /USER PROFILE -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-tools">
+                <span class="go-top">
+                    <i class="fa fa-chevron-up"></i> Top
+                </span>
+            </div>
+        </div><!-- /CONTENT-->
+    </div>
+</div>
+
+<script>
+    function verNotificacoes() {
+        $.get('@Url.Action("TodasNotificacoes", "Home")', function (data) {
+           
+            $("#ver-notificacoes").html(data);
+        });
+    }
+
+    window.onload = function () {
+        verNotificacoes();
+    }
+  
+</script>
+
+<script>
+    function LerNotificacao(val) {
+        $.post('@Url.Action("SalvarNotificacaoVisualizada", "Home")', 'notificacaoId=' + val, function (data) {
+            $('#' + val).addClass('cor-visualizada');
+        })
+    }
+</script>
+
+
+<script>
+    var loadFile = function (event) {
+        var output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
+    };
+</script>
+

@@ -1,0 +1,140 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<Aplicacao.Core.Dominio.Funcionario>
+@{
+    Layout = "../Shared/Layout.cshtml";
+    ViewBag.Title = "Funcionario";
+
+}
+
+@section js{
+
+   	<!-- TABLE CLOTH -->
+<script type="text/javascript" src="~/Content/Admin/js/tablecloth/js/jquery.tablecloth.js"></script>
+<script type="text/javascript" src="~/Content/Admin/js/tablecloth/js/jquery.tablesorter.min.js"></script>
+
+<script>
+		jQuery(document).ready(function() {
+			App.setPage("simple_table");  //Set current page
+			App.init(); //Initialise plugins and elements
+		});
+</script>
+<!-- /JAVASCRIPTS -->
+}
+<div class="container">
+    <div class="row">
+        <div id="content" class="col-lg-12">
+            <!-- PAGE HEADER-->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-header">
+                        <!-- STYLER -->
+                        <!-- /STYLER -->
+                        <!-- BREADCRUMBS -->
+                        <ul class="breadcrumb">
+                            <li>
+                                <i class="fa fa-home"></i>
+                                <a href="@Url.Action("Index","Home")">Home</a>
+                            </li>
+                            <li>Cadastro de Funcionários</li>
+                        </ul>
+                        <!-- /BREADCRUMBS -->
+                        <div class="description">
+                            Cadastre um novo Funcionário!
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /PAGE HEADER -->
+            <!-- SIMPLE STRIPED -->
+            <div class="row">
+
+                <div class="col-md-12 altura-crud">
+                    <div class="col-md-6 botao-cadastar-crud">
+                        <a href="~/Admin/@ViewBag.Controller/Create">
+                            <button class="btn btn-default tamanho-botao-cadastrar"> Cadastrar</button>
+                        </a>
+                    </div>
+                    <div class="col-md-6 formatar-pesquisar-crud">
+                        <form method="get" action="@Url.Action("Index","Funcionario")">
+                            <span> Pesquisar</span>
+                            <input class="tamanho-campo-pesquisar" type="text" name="s" value="@Request.Params["s"]" />
+                            <button class="botao-pesquisar-crud" type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                    <!-- BOX -->
+                    <div class="box border blue">
+                        <div class="box-title">
+                            <h4><i class="fa fa-table"></i>Funcionários</h4>
+
+                        </div>
+                        <div class="box-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Login</th>
+                                        <th>Nome</th>
+                                        <th>Tipo</th>
+                                        <th class="text-center">Editar</th>
+                                        <th class="text-center">Mudar Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.Login</td>
+                                            <td>@item.Nome</td>
+                                            <td>@item.Tipo</td>
+                                            <td class="text-center">
+                                                <a href="@Url.Action("Edit", ViewBag.Controller, new { id = item.FuncionarioId })">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                            </td>
+                                            <td class="text-center">
+                                              <a href="@Url.Action("MudarStatus","Funcionario", new { id = item.FuncionarioId})" onclick="return Status()">
+                                                @if (item.StatusId == 1)
+                                                {
+                                                    <i class="fa fa-check cor-ativo"></i><label class="cor-ativo">Ativo</label>
+                                                }
+                                                else
+                                                {
+                                                    <i class="fa fa-times cor-inativo"></i><label class="cor-inativo">Inativo</label>
+                                                }
+                                              </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /BOX -->
+                </div>
+
+                <div class="page-pagination col-sm-12 col-md-12">
+                    @if (Model.HasNextPage || Model.HasPreviousPage)
+            {
+                        <div style="text-align: center">
+                            @Html.PagedListPager(Model, (page) => Url.Action("Index", new { page = page }), PagedListRenderOptions.Classic)
+                        </div>
+                    }
+                </div>
+            </div>
+            <!-- SIMPLE STRIPED -->
+        </div>
+        <div class="footer-tools">
+            <span class="go-top">
+                <i class="fa fa-chevron-up"></i> Top
+            </span>
+        </div>
+    </div><!-- /CONTENT-->
+    <div class="separator"></div>
+</div>
+
+ <script>
+     function Status() {
+         return confirm("Tem certeza que deseja mudar o Status?");
+     }
+ </script>

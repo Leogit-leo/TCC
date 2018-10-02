@@ -1,0 +1,113 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layout.cshtml";
+    var Funcionarios = ViewBag.Funcionarios as List<Aplicacao.Core.Dominio.Funcionario>;
+}
+
+@section css{
+<link href="~/Content/Plugin/ImageGridEffects/css/normalize.css" rel="stylesheet" />
+<link href="~/Content/Plugin/ImageGridEffects/fonts/font-awesome-4.3.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="~/Content/Plugin/ImageGridEffects/css/demo.css" rel="stylesheet" />
+<link href="~/Content/Plugin/ImageGridEffects/css/style6.css" rel="stylesheet" />
+<script src="~/Content/Plugin/ImageGridEffects/js/modernizr-custom.js"></script>
+}
+
+@section js{
+<script src="~/Content/Plugin/ImageGridEffects/js/imagesloaded.pkgd.min.js"></script>
+<script src="~/Content/Plugin/ImageGridEffects/js/masonry.pkgd.min.js"></script>
+<script src="~/Content/Plugin/ImageGridEffects/js/classie.js"></script>
+<script src="~/Content/Plugin/ImageGridEffects/js/main.js"></script>
+
+
+<script>
+		(function() {
+			var support = { transitions: Modernizr.csstransitions },
+				// transition end event name
+				transEndEventNames = { 'WebkitTransition': 'webkitTransitionEnd', 'MozTransition': 'transitionend', 'OTransition': 'oTransitionEnd', 'msTransition': 'MSTransitionEnd', 'transition': 'transitionend' },
+				transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ],
+				onEndTransition = function( el, callback ) {
+					var onEndCallbackFn = function( ev ) {
+						if( support.transitions ) {
+							if( ev.target != this ) return;
+							this.removeEventListener( transEndEventName, onEndCallbackFn );
+						}
+						if( callback && typeof callback === 'function' ) { callback.call(this); }
+					};
+					if( support.transitions ) {
+						el.addEventListener( transEndEventName, onEndCallbackFn );
+					}
+					else {
+						onEndCallbackFn();
+					}
+				};
+
+			new GridFx(document.querySelector('.grid'), {
+				imgPosition : {
+					x : 1,
+					y : -0.75
+				},
+				pagemargin : 50,
+				onOpenItem : function(instance, item) {
+					var win = {width: window.innerWidth, height: window.innerHeight};
+					instance.items.forEach(function(el) {
+						if(item != el) {
+							var delay = Math.floor(Math.random() * 150);
+								el.style.WebkitTransition = 'opacity .6s ' + delay + 'ms cubic-bezier(.5,1,.2,1), -webkit-transform .6s ' + delay + 'ms cubic-bezier(.5,1,.2,1)';
+								el.style.transition = 'opacity .6s ' + delay + 'ms cubic-bezier(.5,1,.2,1), transform .6s ' + delay + 'ms cubic-bezier(.5,1,.2,1)';
+
+								el.style.WebkitTransform = 'translate3d(-' + win.width + 'px,0,0)';
+								el.style.transform = 'translate3d(-' + win.width + 'px,0,0)';
+								el.style.opacity = 0;
+						}
+					});
+				},
+				onCloseItem : function(instance, item) {
+					instance.items.forEach(function(el) {
+						if(item != el) {
+							var delay = Math.floor(Math.random() * 150);
+							el.style.WebkitTransition = 'opacity .3s ' + delay + 'ms cubic-bezier(.5,1,.2,1), -webkit-transform .3s ' + delay + 'ms cubic-bezier(.5,1,.2,1)';
+							el.style.transition = 'opacity .3s ' + delay + 'ms cubic-bezier(.5,1,.2,1), transform .3s ' + delay + 'ms cubic-bezier(.5,1,.2,1)';
+
+
+							el.style.WebkitTransform = 'translate3d(0,0,0)';
+							el.style.transform = 'translate3d(0,0,0)';
+							el.style.opacity = 1;
+
+							onEndTransition(el, function() {
+								el.style.transition = 'none';
+								el.style.WebkitTransform = 'none';
+							});
+						}
+					});
+				}
+			});
+		})();
+</script>
+}
+
+<div class="content">
+    <div class="grid">
+        @foreach (var funcionario in Funcionarios)
+        {
+        <div class="grid__item" data-size="1280x1280">
+            <a href="@Href(UI.Web.Helpers.Caminho.Usuario() + funcionario.Foto)" class="img-wrap">
+                
+                    <img class="img-prestadores" src="@Href(UI.Web.Helpers.Caminho.Usuario() + funcionario.Foto)" alt="img10" />
+                
+                <div class="description description--grid ocultar-texto">
+                    <h3>@funcionario.Nome</h3>
+                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed blandit enim eu porta venenatis. Cras et est pretium, blandit sapien ac, convallis erat. Curabitur nec justo sed lectus ultricies faucibus.</span>
+                </div>
+            </a>
+        </div>
+        }
+
+    </div>
+    <!-- /grid -->
+    <div class="preview">
+        <button class="action action--close"><i class="fa fa-times"></i><span class="text-hidden">Close</span></button>
+        <div class="description description--preview">
+        </div>
+    </div>
+    <!-- /preview -->
+</div>

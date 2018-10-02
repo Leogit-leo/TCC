@@ -1,0 +1,30 @@
+.tamanho-calendario{
+    width:700px;
+    margin-left: 25px;
+}
+.posicao-usuario-logado{
+    padding-left: 171px;
+}
+.user-perfil{
+    padding-left: 129px;
+}
+.perfil-user{
+    padding-left: 175px;
+}
+.cor-visualizada{
+    background: #5e87b0 !important;
+}
+.cor-visualizada button i{
+    color: #5e87b0 !important;
+}
+.modal-info-agenda{
+    font-size: 21px;
+    color: blue;
+}
+.img-prestadores{
+    max-height: 220px !important;
+}
+
+.ocultar-texto span{
+    display:none !important;
+}

@@ -1,0 +1,34 @@
+﻿@model List<Aplicacao.Core.Dominio.Notificacao>
+@{
+    ViewBag.Title = "VerNotificacoes";
+    var usuarioLogado = UI.Web.Helpers.UserLogin.GetUsuarioAdmin();
+   
+}
+
+
+@foreach (var notificacao in Model)
+{
+    <div id="@notificacao.NotificacaoId" class="feed-activity clearfix @((notificacao.FuncionarioDaNotificacao.Any(x => x.NotificacaoId == notificacao.NotificacaoId && x.FuncionarioId == usuarioLogado.FuncionarioId))? "cor-visualizada" : "")">
+        <div>
+            <div class="col-md-12">
+                <div class="col-md-2">
+                    <img class="img-responsive tamanho-img-notificacao" src="@Href(UI.Web.Helpers.Caminho.Usuario() + notificacao.Funcionario.Foto)" />
+                </div>
+                <div class="col-md-8">
+                    <span>Enviada por:</span>
+                    <p>@notificacao.Funcionario.Nome</p>
+                </div>
+                <div class="col-md-2">
+                    <button id="btaoVisualizada" onclick="LerNotificacao(@notificacao.NotificacaoId)"><i id="btaoVisualizada" class="fa fa-check">Lida</i></button>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <h4> @notificacao.Titulo</h4>  @notificacao.Mensagem
+            </div>
+        </div>
+        <div class="time">
+            <i class="fa fa-clock-o"></i>
+            @notificacao.DataNotificacao
+        </div>
+    </div>
+}

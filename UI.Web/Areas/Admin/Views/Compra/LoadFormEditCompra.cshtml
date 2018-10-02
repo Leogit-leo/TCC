@@ -1,0 +1,65 @@
+﻿@model Aplicacao.Core.Dominio.RegistroCompra
+@{
+    var Clientes = ViewBag.Clientes as List<Aplicacao.Core.Dominio.Cliente>;
+    var Produtos = ViewBag.Produtos as List<Aplicacao.Core.Dominio.Produto>;
+    bool PossuiItem = false;
+    Aplicacao.Core.Dominio.ItemCompra ItemAtual = null;
+}
+
+
+
+<form class="form-horizontal form-ajx" action="@Url.Action("EditarCompra","Compra")" method="post">
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="e1">Cliente</label>
+        <div class="col-md-10">
+            <input type="hidden" name="RegistroCompraId" value="@Model.RegistroCompraId"/>
+            <input type="hidden" name="DataCompra" value="@Model.DataCompra"/>
+            <select name="ClienteId" class="col-md-12">
+                @foreach (var cliente in Clientes)
+                {
+                    <option value="@cliente.ClienteId" @((cliente.ClienteId == Model.ClienteId)? "selected" : "")>@cliente.Nome</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-2 control-label">Produtos </label>
+        <div class="col-md-10">
+            @foreach (var produto in Produtos)
+            {
+                PossuiItem = Model.Itens.Any(x => x.ProdutoId == produto.ProdutoId);
+                ItemAtual = PossuiItem ? Model.Itens.FirstOrDefault(x => x.ProdutoId == produto.ProdutoId) : null;
+
+                <div class="col-md-12">
+                    <div class="col-md-5">
+                        <label>
+                            <input type="checkbox" name="ProdutosSelecionados" value="@produto.ProdutoId" @((PossuiItem) ? "checked" : "")>
+                            @produto.Nome
+                        </label>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="qtde-registro-prod">Qtde</label>
+                        @if (PossuiItem)
+                        {
+                            <input type="text" class="tamanho-qtde-editar" name="Quantidade_Produto_@produto.ProdutoId" value="@ItemAtual.Quantidade" />
+                        }
+                        else
+                        {
+                            <input type="text" class="tamanho-qtde-editar" name="Quantidade_Produto_@produto.ProdutoId" value="" />
+                        }
+                    </div>
+                    <div class="col-md-4">
+                        <label> Disponíveis</label> @produto.Quantidade
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-4">
+            <button class="btn btn-block" type="submit"> Editar</button>
+        </div>
+    </div>
+</form>

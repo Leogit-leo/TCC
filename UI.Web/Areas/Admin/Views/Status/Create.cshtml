@@ -1,0 +1,56 @@
+﻿@model Aplicacao.Core.Dominio.Status
+@{
+    Layout = "../Shared/Layout.cshtml";
+    ViewBag.Title = "Status";
+}
+@using (Html.BeginForm("Create", "Status", FormMethod.Post, new { @class = "form-ajx" }))
+{
+    <div class="panel panel-white">
+        <div class="panel-heading clearfix">
+            <h4 class="panel-title">Cadastrar @ViewBag.TitulosForm</h4>
+        </div>
+        <div class="panel-body">
+            <div class="box-inner">
+                <div class="box-content">
+                 
+                    <div class="form-group col-md-6">
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Nome)
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextBoxFor(model => model.Nome, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => Model.Nome)
+                        </div>
+                    </div>
+                  
+                    <div class="form-group col-md-6">
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Bloquear)
+                        </div>
+                        <div class="editor-field">
+                          <select name="Bloquear" class="form-control">
+                              <option value="true">Sim</option>
+                              <option value="false">Não</option>
+                          </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <button type="submit" class="btn btn-success btn-block">Salvar</button>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.ActionLink("Cancelar", "Index", "Status", new object { }, new { @class = "btn btn-danger btn-block" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@Scripts.Render("~/bundles/jqueryval")
+
+<script type="text/javascript">
+    var UrlDestino = '@Url.Action("Index")';
+</script>

@@ -1,0 +1,399 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C01A1E54-5AB9-40CB-A248-F81CCF4B65CF}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Aplicacao.Core</RootNamespace>
+    <AssemblyName>Aplicacao.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.30506.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Dominio\CategoriaFoto.cs" />
+    <Compile Include="Dominio\Comissao.cs" />
+    <Compile Include="Dominio\Foto.cs" />
+    <Compile Include="Dominio\Status.cs" />
+    <Compile Include="Dominio\ItemCompra.cs" />
+    <Compile Include="Dominio\ProdutoFiado.cs" />
+    <Compile Include="Dominio\ServicoFiado.cs" />
+    <Compile Include="Dominio\RegistroCompraFiada.cs" />
+    <Compile Include="Dominio\RegistroCompra.cs" />
+    <Compile Include="Dominio\RelFuncionarioNotificacao.cs" />
+    <Compile Include="Dominio\Notificacao.cs" />
+    <Compile Include="Dominio\Produto.cs" />
+    <Compile Include="Dominio\Contrato\IRepositorio.cs" />
+    <Compile Include="Dominio\Cliente.cs" />
+    <Compile Include="Dominio\Agenda.cs" />
+    <Compile Include="Dominio\RelFuncionarioServico.cs" />
+    <Compile Include="Dominio\Servico.cs" />
+    <Compile Include="Dominio\RetornoJson.cs" />
+    <Compile Include="Dominio\Funcionario.cs" />
+    <Compile Include="Dominio\IUsuario.cs" />
+    <Compile Include="Dominio\Migrations\201707291612209_itens.cs" />
+    <Compile Include="Dominio\Migrations\201707291612209_itens.Designer.cs">
+      <DependentUpon>201707291612209_itens.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dominio\Migrations\201707291711464_foren.cs" />
+    <Compile Include="Dominio\Migrations\201707291711464_foren.Designer.cs">
+      <DependentUpon>201707291711464_foren.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dominio\Migrations\201707312250487_itenscompra.cs" />
+    <Compile Include="Dominio\Migrations\201707312250487_itenscompra.Designer.cs">
+      <DependentUpon>201707312250487_itenscompra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dominio\Migrations\201708020239495_valortotal.cs" />
+    <Compile Include="Dominio\Migrations\201708020239495_valortotal.Designer.cs">
+      <DependentUpon>201708020239495_valortotal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dominio\Migrations\201708061626197_cpf.cs" />
+    <Compile Include="Dominio\Migrations\201708061626197_cpf.Designer.cs">
+      <DependentUpon>201708061626197_cpf.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dominio\Migrations\201708061814074_fiado.cs" />
+    <Compile Include="Dominio\Migrations\201708061814074_fiado.Designer.cs">
+      <DependentUpon>201708061814074_fiado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dominio\Migrations\201708100005173_servicofiado.cs" />
+    <Compile Include="Dominio\Migrations\201708100005173_servicofiado.Designer.cs">
+      <DependentUpon>201708100005173_servicofiado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dominio\Migrations\201708100344436_data.cs" />
+    <Compile Include="Dominio\Migrations\201708100344436_data.Designer.cs">
+      <DependentUpon>201708100344436_data.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dominio\Migrations\201708102318579_itens1.cs" />
+    <Compile Include="Dominio\Migrations\201708102318579_itens1.Designer.cs">
+      <DependentUpon>201708102318579_itens1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dominio\Migrations\201708102339417_servfiado.cs" />
+    <Compile Include="Dominio\Migrations\201708102339417_servfiado.Designer.cs">
+      <DependentUpon>201708102339417_servfiado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dominio\Migrations\201708112134420_produto.cs" />
+    <Compile Include="Dominio\Migrations\201708112134420_produto.Designer.cs">
+      <DependentUpon>201708112134420_produto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dominio\Migrations\201708112149220_okok.cs" />
+    <Compile Include="Dominio\Migrations\201708112149220_okok.Designer.cs">
+      <DependentUpon>201708112149220_okok.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dominio\Migrations\201708120008595_quantidade.cs" />
+    <Compile Include="Dominio\Migrations\201708120008595_quantidade.Designer.cs">
+      <DependentUpon>201708120008595_quantidade.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dominio\Migrations\Configuration.cs" />
+    <Compile Include="Migrations\201708162355075_itens2.cs" />
+    <Compile Include="Migrations\201708162355075_itens2.Designer.cs">
+      <DependentUpon>201708162355075_itens2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708250117021_funcid.cs" />
+    <Compile Include="Migrations\201708250117021_funcid.Designer.cs">
+      <DependentUpon>201708250117021_funcid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708261704591_dataparapagamento.cs" />
+    <Compile Include="Migrations\201708261704591_dataparapagamento.Designer.cs">
+      <DependentUpon>201708261704591_dataparapagamento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709022016114_t.cs" />
+    <Compile Include="Migrations\201709022016114_t.Designer.cs">
+      <DependentUpon>201709022016114_t.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709032004097_tipo.cs" />
+    <Compile Include="Migrations\201709032004097_tipo.Designer.cs">
+      <DependentUpon>201709032004097_tipo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709050019517_status.cs" />
+    <Compile Include="Migrations\201709050019517_status.Designer.cs">
+      <DependentUpon>201709050019517_status.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709050114397_cliente.cs" />
+    <Compile Include="Migrations\201709050114397_cliente.Designer.cs">
+      <DependentUpon>201709050114397_cliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709052118558_statusservico.cs" />
+    <Compile Include="Migrations\201709052118558_statusservico.Designer.cs">
+      <DependentUpon>201709052118558_statusservico.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709060325392_produtostatus.cs" />
+    <Compile Include="Migrations\201709060325392_produtostatus.Designer.cs">
+      <DependentUpon>201709060325392_produtostatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709060355012_funstatus.cs" />
+    <Compile Include="Migrations\201709060355012_funstatus.Designer.cs">
+      <DependentUpon>201709060355012_funstatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709071658411_fotocatefoto.cs" />
+    <Compile Include="Migrations\201709071658411_fotocatefoto.Designer.cs">
+      <DependentUpon>201709071658411_fotocatefoto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709071809371_data1.cs" />
+    <Compile Include="Migrations\201709071809371_data1.Designer.cs">
+      <DependentUpon>201709071809371_data1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709072156306_fotofun.cs" />
+    <Compile Include="Migrations\201709072156306_fotofun.Designer.cs">
+      <DependentUpon>201709072156306_fotofun.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709110217540_login.cs" />
+    <Compile Include="Migrations\201709110217540_login.Designer.cs">
+      <DependentUpon>201709110217540_login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709122145516_vt.cs" />
+    <Compile Include="Migrations\201709122145516_vt.Designer.cs">
+      <DependentUpon>201709122145516_vt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709231522342_comissao.cs" />
+    <Compile Include="Migrations\201709231522342_comissao.Designer.cs">
+      <DependentUpon>201709231522342_comissao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709231557397_comissaoagenda.cs" />
+    <Compile Include="Migrations\201709231557397_comissaoagenda.Designer.cs">
+      <DependentUpon>201709231557397_comissaoagenda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709232133284_agendaopcional.cs" />
+    <Compile Include="Migrations\201709232133284_agendaopcional.Designer.cs">
+      <DependentUpon>201709232133284_agendaopcional.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709232141584_comprafiadaopcional.cs" />
+    <Compile Include="Migrations\201709232141584_comprafiadaopcional.Designer.cs">
+      <DependentUpon>201709232141584_comprafiadaopcional.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711241903590_clienteidparanotificar.cs" />
+    <Compile Include="Migrations\201711241903590_clienteidparanotificar.Designer.cs">
+      <DependentUpon>201711241903590_clienteidparanotificar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepositorioEF\ComissaoRepositorioEF.cs" />
+    <Compile Include="RepositorioEF\CategoriaFotoRepositorioEF.cs" />
+    <Compile Include="RepositorioEF\FotoRepositorioEF.cs" />
+    <Compile Include="RepositorioEF\StatusRepositorioEF.cs" />
+    <Compile Include="RepositorioEF\Base\Repositorio.cs" />
+    <Compile Include="RepositorioEF\ProdutoFiadoRepositorioEF.cs" />
+    <Compile Include="RepositorioEF\ServicoFiadoRepositorioEF.cs" />
+    <Compile Include="RepositorioEF\NotificacaoRepositorioEF.cs" />
+    <Compile Include="RepositorioEF\ItemCompraRepositorioEF.cs" />
+    <Compile Include="RepositorioEF\RegistroCompraFiadaRepositorioEF.cs" />
+    <Compile Include="RepositorioEF\RegistroCompraRepositorioEF.cs" />
+    <Compile Include="RepositorioEF\RelFuncionarioNotificacaoRepositorioEF.cs" />
+    <Compile Include="RepositorioEF\RelFuncionarioServicoRepositorioEF.cs" />
+    <Compile Include="RepositorioEF\ProdutoRepositorioEF.cs" />
+    <Compile Include="RepositorioEF\Contexto\BancoContexto.cs" />
+    <Compile Include="RepositorioEF\ClienteRepositorioEF.cs" />
+    <Compile Include="RepositorioEF\AgendaRepositorioEF.cs" />
+    <Compile Include="RepositorioEF\ServicoRepositorioEF.cs" />
+    <Compile Include="RepositorioEF\FuncionarioRepositorioEF.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Dominio\Migrations\201707291612209_itens.resx">
+      <DependentUpon>201707291612209_itens.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dominio\Migrations\201707291711464_foren.resx">
+      <DependentUpon>201707291711464_foren.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dominio\Migrations\201707312250487_itenscompra.resx">
+      <DependentUpon>201707312250487_itenscompra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dominio\Migrations\201708020239495_valortotal.resx">
+      <DependentUpon>201708020239495_valortotal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dominio\Migrations\201708061626197_cpf.resx">
+      <DependentUpon>201708061626197_cpf.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dominio\Migrations\201708061814074_fiado.resx">
+      <DependentUpon>201708061814074_fiado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dominio\Migrations\201708100005173_servicofiado.resx">
+      <DependentUpon>201708100005173_servicofiado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dominio\Migrations\201708100344436_data.resx">
+      <DependentUpon>201708100344436_data.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dominio\Migrations\201708102318579_itens1.resx">
+      <DependentUpon>201708102318579_itens1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dominio\Migrations\201708102339417_servfiado.resx">
+      <DependentUpon>201708102339417_servfiado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dominio\Migrations\201708112134420_produto.resx">
+      <DependentUpon>201708112134420_produto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dominio\Migrations\201708112149220_okok.resx">
+      <DependentUpon>201708112149220_okok.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dominio\Migrations\201708120008595_quantidade.resx">
+      <DependentUpon>201708120008595_quantidade.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708162355075_itens2.resx">
+      <DependentUpon>201708162355075_itens2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708250117021_funcid.resx">
+      <DependentUpon>201708250117021_funcid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708261704591_dataparapagamento.resx">
+      <DependentUpon>201708261704591_dataparapagamento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709022016114_t.resx">
+      <DependentUpon>201709022016114_t.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709032004097_tipo.resx">
+      <DependentUpon>201709032004097_tipo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709050019517_status.resx">
+      <DependentUpon>201709050019517_status.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709050114397_cliente.resx">
+      <DependentUpon>201709050114397_cliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709052118558_statusservico.resx">
+      <DependentUpon>201709052118558_statusservico.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709060325392_produtostatus.resx">
+      <DependentUpon>201709060325392_produtostatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709060355012_funstatus.resx">
+      <DependentUpon>201709060355012_funstatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709071658411_fotocatefoto.resx">
+      <DependentUpon>201709071658411_fotocatefoto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709071809371_data1.resx">
+      <DependentUpon>201709071809371_data1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709072156306_fotofun.resx">
+      <DependentUpon>201709072156306_fotofun.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709110217540_login.resx">
+      <DependentUpon>201709110217540_login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709122145516_vt.resx">
+      <DependentUpon>201709122145516_vt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709231522342_comissao.resx">
+      <DependentUpon>201709231522342_comissao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709231557397_comissaoagenda.resx">
+      <DependentUpon>201709231557397_comissaoagenda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709232133284_agendaopcional.resx">
+      <DependentUpon>201709232133284_agendaopcional.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709232141584_comprafiadaopcional.resx">
+      <DependentUpon>201709232141584_comprafiadaopcional.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711241903590_clienteidparanotificar.resx">
+      <DependentUpon>201711241903590_clienteidparanotificar.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>5337</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:5337/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
